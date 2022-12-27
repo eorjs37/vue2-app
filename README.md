@@ -37,3 +37,20 @@ module.exports = {
 ```
 
 > npm run test 실행
+
+## Jest Api
+
+- describe()
+- test()
+- expect()
+- beforeEach()
+
+### describe()
+
+> 여러개의 test 코드를 하나로 묶고 싶을때 사용되곤한다. 비슷한 주제끼리 묶어서 적으면
+
+### test()
+
+### expect()
+
+### beforeEach()
