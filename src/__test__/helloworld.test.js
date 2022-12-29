@@ -1,13 +1,7 @@
-const str = "hello world";
+import Vue from "vue";
+import HelloWorld from "../components/HelloWorld.vue";
 
-describe("Testing1", () => {
-  test("HelloWorld Component", () => {
-    expect(str).toBe("hello world");
-  });
-  test("HelloWorld Component", () => {
-    expect(str).toBe("hello world");
-  });
-  test("HelloWorld Component", () => {
-    expect(str).toBe("hello world");
-  });
+test("HelloWorld Component", () => {
+  const cmp = new Vue(HelloWorld).$mount();
+  expect(cmp.message).toBe("Vue!");
 });
