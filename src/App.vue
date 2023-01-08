@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ionicMain } from "@/api/login";
+import { ionicMain, login } from "@/api/login";
 export default {
   name: "App",
   data() {
@@ -52,6 +52,11 @@ export default {
   },
   created() {
     this.ionicMain();
+
+    login({
+      UserId: "chleorjs12@gmail.com",
+      PassWord: "chleorjs12@",
+    });
   },
   mounted() {},
 };
