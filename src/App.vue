@@ -22,7 +22,7 @@
 import { login } from "@/api/login";
 import { App } from "@capacitor/app";
 import { SpeechRecognition } from "@capacitor-community/speech-recognition";
-
+import { Device } from "@capacitor/device";
 export default {
   name: "App",
   data() {
@@ -30,7 +30,6 @@ export default {
       title: "Hello Vue Capacitor",
     };
   },
-  methods: {},
   created() {
     login({
       UserId: "chleorjs12@gmail.com",
@@ -42,9 +41,14 @@ export default {
       console.log("backButton");
     });
 
-    SpeechRecognition.requestPermission()
-      .then((value) => {
-        console.log("value : ", value);
+    const { platform } = await this.getDevice();
+    console.log(platform);
+
+    if (platform !== "web") {
+      console.log("platform  : ", platform);
+      const { permission } = await SpeechRecognition.hasPermission();
+
+      if (permission) {
         SpeechRecognition.start({
           language: "en-US",
           maxResults: 2,
@@ -62,10 +66,29 @@ export default {
         SpeechRecognition.addListener("partialResults", (data) => {
           console.log("partialResults was fired", data.matches);
         });
-      })
-      .catch((err) => {
-        console.error("err : ", err);
-      });
+      } else {
+        SpeechRecognition.requestPermission()
+          .then(
+            () => console.log("Granted"),
+            () => console.log("Denied")
+          )
+          .catch((err) => {
+            console.error("err : ", err);
+          });
+      }
+    }
+  },
+
+  methods: {
+    async getDevice() {
+      try {
+        const info = await Device.getInfo();
+        return info;
+      } catch (error) {
+        console.error("getDevice error : ", error);
+        return error;
+      }
+    },
   },
 };
 </script>
