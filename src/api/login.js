@@ -5,7 +5,7 @@ const login = (payload) => {
 };
 
 const ionicMain = () => {
-  return _axios.get("/api/ionic/user/main");
+  return _axios.get("/api/ionic/user/test", {});
 };
 
 export { login, ionicMain };
