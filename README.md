@@ -5,7 +5,7 @@
 ```json
 //capacitor.config.json
 "server": {
-  "url": "http://로컬컴퓨터ip주소:8100",
+  "url": "http://로컬컴퓨터ip주소:8080",
   "cleartext": true
 },
 ```

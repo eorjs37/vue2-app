@@ -4,7 +4,7 @@
       <div class="login-box">
         <div class="form-group">
           <label for="id">ID</label>
-          <input type="text" placeholder="아이디ss를 입력하세요" />
+          <input type="text" placeholder="아이디를 입력하세요" />
         </div>
         <div class="form-group">
           <label for="id">PASSWORD</label>
@@ -21,6 +21,8 @@
 <script>
 import { login } from "@/api/login";
 import { App } from "@capacitor/app";
+import { SpeechRecognition } from "@capacitor-community/speech-recognition";
+
 export default {
   name: "App",
   data() {
@@ -35,9 +37,27 @@ export default {
       PassWord: "chleorjs12@",
     });
   },
-  mounted() {
+  async mounted() {
     App.addListener("backButton", () => {
       console.log("backButton");
+    });
+
+    await SpeechRecognition.requestPermission();
+
+    SpeechRecognition.start({
+      language: "en-US",
+      maxResults: 2,
+      prompt: "Say something",
+      partialResults: true,
+      popup: true,
+    });
+
+    setTimeout(() => {
+      SpeechRecognition.stop();
+    }, 2000);
+
+    SpeechRecognition.addListener("partialResults", (data) => {
+      console.log("partialResults was fired", data.matches);
     });
   },
 };
