@@ -42,23 +42,30 @@ export default {
       console.log("backButton");
     });
 
-    await SpeechRecognition.requestPermission();
+    SpeechRecognition.requestPermission()
+      .then((value) => {
+        console.log("value : ", value);
+        SpeechRecognition.start({
+          language: "en-US",
+          maxResults: 2,
+          prompt: "Say something",
+          partialResults: true,
+          popup: true,
+        }).then((value) => {
+          console.log("value : ", value);
+        });
 
-    SpeechRecognition.start({
-      language: "en-US",
-      maxResults: 2,
-      prompt: "Say something",
-      partialResults: true,
-      popup: true,
-    });
+        setTimeout(() => {
+          SpeechRecognition.stop();
+        }, 2000);
 
-    setTimeout(() => {
-      SpeechRecognition.stop();
-    }, 2000);
-
-    SpeechRecognition.addListener("partialResults", (data) => {
-      console.log("partialResults was fired", data.matches);
-    });
+        SpeechRecognition.addListener("partialResults", (data) => {
+          console.log("partialResults was fired", data.matches);
+        });
+      })
+      .catch((err) => {
+        console.error("err : ", err);
+      });
   },
 };
 </script>
