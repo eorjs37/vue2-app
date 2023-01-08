@@ -4,7 +4,7 @@
       <div class="login-box">
         <div class="form-group">
           <label for="id">ID</label>
-          <input type="text" placeholder="아이디를 입력하세요" />
+          <input type="text" placeholder="아이디ss를 입력하세요" />
         </div>
         <div class="form-group">
           <label for="id">PASSWORD</label>
@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import { ionicMain, login } from "@/api/login";
+import { login } from "@/api/login";
+import { App } from "@capacitor/app";
 export default {
   name: "App",
   data() {
@@ -27,38 +28,18 @@ export default {
       title: "Hello Vue Capacitor",
     };
   },
-  methods: {
-    ionicMain() {
-      ionicMain()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          if (error.response) {
-            if (error.response.status >= 500) {
-              alert("서버에서 에러가 발생하였습니다.");
-            } else {
-              alert("요청이 잘못되었습니다.");
-            }
-          } else if (error.request) {
-            console.log(error.request);
-            alert(error.request);
-          } else {
-            console.log(error.message);
-            alert(error.message);
-          }
-        });
-    },
-  },
+  methods: {},
   created() {
-    this.ionicMain();
-
     login({
       UserId: "chleorjs12@gmail.com",
       PassWord: "chleorjs12@",
     });
   },
-  mounted() {},
+  mounted() {
+    App.addListener("backButton", () => {
+      console.log("backButton");
+    });
+  },
 };
 </script>
 

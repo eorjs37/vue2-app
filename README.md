@@ -1,5 +1,15 @@
 # vue2-app
 
+## capacitor live-reload
+
+```json
+//capacitor.config.json
+"server": {
+  "url": "http://로컬컴퓨터ip주소:8100",
+  "cleartext": true
+},
+```
+
 # jest
 
 ## install

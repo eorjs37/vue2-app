@@ -9,7 +9,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@capacitor-community/speech-recognition": "^2.1.0",
     "@capacitor/android": "^4.4.0",
+    "@capacitor/app": "^4.1.1",
     "@capacitor/core": "^4.4.0",
     "@capacitor/ios": "^4.4.0",
     "@ionic/vue": "^6.3.2",
